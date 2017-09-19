@@ -3,6 +3,41 @@ Self-Driving Car Engineer Nanodegree Program
 
 In this project utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project reburic. 
 
+## Mathematic About the UKF
+
+In UKF, we work with a moving object of interest under CTRV  (constant turn rate and velocity magnitude model) nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
+
++ The State Vector of CTRV model =>  $ x = [ \begin{matrix} p_{x} & p_{y} &  v &  \psi & \dot{\psi} \end{matrix} ]^T $
+  + $v$ : speed which describes the magnitude
+
+  + $\psi$ : yaw angle which describes the orientation
+
+  + $\dot{\psi}$ : yaw rate
+    ![CTRV_state_vecotr](demo/CTRV_state_vector.png)
+
+    ​
+
++ Change rate of state => $ \dot{x} = [\begin{matrix} \dot{p_{x}} & \dot{p_{y}} & \dot{v} & \dot{\psi} & \ddot{\psi}  \end{matrix}]^T $ $= [ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix}]^T$
+
++ Process model: predicts the state at time step k+1 
+
+  => $ x_{k+1} = f(x_{k}, \nu_{k})  = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) \\ v \cdot sin(\psi) \\ 0 \\ \dot{\psi} \\ 0 \end{matrix} \right] dt$ ;    $dt = t_{k+1} - t_{k}$
+  $$
+  x_{k} + \left[ 
+  		\begin{matrix} 
+  		\frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\ 
+  	    		v \cdot sin(\psi) \\
+                    0 \\
+  		\dot{\psi} \\
+  		0 
+  		\end{matrix}
+  	\right]
+  $$
+
+
+
+## Installation
+
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
 This repository includes two files that can be used to set up and intall [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. For windows you can use either Docker, VMware, or even [Windows 10 Bash on Ubuntu](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to install uWebSocketIO. Please see [this concept in the classroom](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/16cf4a78-4fc7-49e1-8621-3450ca938b77) for the required version and installation scripts.
@@ -15,7 +50,11 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 4. make
 5. ./UnscentedKF
 
-Note that the programs that need to be written to accomplish the project are src/ukf.cpp, src/ukf.h, tools.cpp, and tools.h
+
+
+## Usage
+
+Note that the programs that need to be written to accomplish the project are **src/ukf.cpp**, **src/ukf.h**, **src/tools.cpp**, and **src/tools.h**
 
 The program main.cpp has already been filled out, but feel free to modify it.
 
