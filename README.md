@@ -26,9 +26,10 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
   x_{k} + 
   \left[ 
     \begin{matrix} 
-      \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\ v \cdot sin(\psi) \\
-      0 \\
-      \dot{\psi} \\
+      \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\\\
+      v \cdot sin(\psi) \\\\
+      0 \\\\
+      \dot{\psi} \\\\
       0
     \end{matrix}
   \right]
