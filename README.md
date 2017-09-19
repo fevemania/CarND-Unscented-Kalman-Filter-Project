@@ -15,7 +15,8 @@ please install Chrome extension [Github with MathJax][https://chrome.google.com/
 
 In UKF, we work with a moving object of interest under CTRV  (constant turn rate and velocity magnitude model) nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
 
-+ The State Vector of CTRV model =>  $ x = [ \begin{matrix} p_{x} & p_{y} &  v &  \psi & \dot{\psi} \end{matrix} ]^T $
++ The State Vector of CTRV model :  $ x = [ \begin{matrix} p_{x} & p_{y} &  v &  \psi & \dot{\psi} \end{matrix} ]^T $
+
   + $v$ : speed which describes the magnitude
 
   + $\psi$ : yaw angle which describes the orientation
@@ -28,33 +29,56 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
 
     ​
 
-+ Change rate of state => $ \dot{x} = [\begin{matrix} \dot{p_{x}} & \dot{p_{y}} & \dot{v} & \dot{\psi} & \ddot{\psi}  \end{matrix}]^T $ $= [ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix}]^T$
++ Change rate of state :   $ \dot{x} = [\begin{matrix} \dot{p_{x}} & \dot{p_{y}} & \dot{v} & \dot{\psi} & \ddot{\psi}  \end{matrix}]^T $ $= [ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix}]^T$
 
-+ Process model: predicts the state at time step k+1 =>
++ Time difference         :   $\Delta t = t_{k+1} - t_{k}$ 
 
-  $dt = t_{k+1} - t_{k}$ 
++ Process model (predicts the state at time step k+1) :   $ x_{k+1} = f(x_{k}, \nu_{k}) $
 
-  ​
-  
-  \begin{align}
-  \\[
-   x_{k+1} = f(x_{k}, \nu_{k})  
+  + WIthout consider noise:
 
-   & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix} \right] dt \\\\
+
+$$
+\begin{align}
+   x_{k+1} = f(x_{k})
+
+   & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
 
   & = x_{k} + 
   \left[ 
     \begin{matrix} 
-      \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\\\
-      v \cdot sin(\psi) \\\\
+      \int^{t_{k+1}}_{t_{k}} v(t) \cdot cos(\psi(t)) dt   \\\\
+      \int^{t_{k+1}}_{t_{k}} v(t) \cdot  sin(\psi(t)) dt   \\\\
       0 \\\\
-      \dot{\psi} \\\\
+      \dot{\psi_{k}} \Delta t \\\\
       0
     \end{matrix}
   \right]
-  \\]
-  \end{align}
   
+  = x_{k} + 
+  \left[ 
+    \begin{matrix} 
+      v_{k} \int^{t_{k+1}}_{t_{k}} cos( \psi_{k} + \dot{\psi_{k}} \cdot (t - t_{k})  ) dt   \\\\
+      v_{k} \int^{t_{k+1}}_{t_{k}} sin( \psi_{k} + \dot{\psi_{k}} \cdot (t - t_{k}) ) dt   \\\\
+      0 \\\\
+      \dot{\psi_{k}} \Delta t \\\\
+      0
+    \end{matrix}
+  \right] \\\\
+
+  & = x_{k} + 
+  \left[ 
+    \begin{matrix} 
+      \frac{v{k}}{\psi_{k}} \left( sin(\psi_{k} + \dot{\psi_{k}} \Delta t) - sin(\psi_{k})  \right) \\\\
+      \frac{v{k}}{\psi_{k}} \left( -cos(\psi_{k} + \dot{\psi_{k}} \Delta t) + cos(\psi_{k})  \right) \\\\
+      0 \\\\
+      \dot{\psi_{k}} \Delta t \\\\
+      0
+    \end{matrix}
+  \right]
+  \end{align}
+$$
+
   ​
 
 
