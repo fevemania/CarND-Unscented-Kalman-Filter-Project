@@ -3,6 +3,14 @@ Self-Driving Car Engineer Nanodegree Program
 
 In this project utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project reburic. 
 
+
+
+## Render Latex code on github
+
+please install Chrome extension [Github with MathJax][https://chrome.google.com/webstore/detail/github-with-mathjax/ioemnmodlmafdkllaclgeombjnmnbima].
+
+
+
 ## Mathematic About the UKF
 
 In UKF, we work with a moving object of interest under CTRV  (constant turn rate and velocity magnitude model) nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
@@ -13,17 +21,25 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
   + $\psi$ : yaw angle which describes the orientation
 
   + $\dot{\psi}$ : yaw rate
+
+    ​
+
     ![CTRV_state_vecotr](demo/CTRV_state_vector.png)
 
     ​
 
 + Change rate of state => $ \dot{x} = [\begin{matrix} \dot{p_{x}} & \dot{p_{y}} & \dot{v} & \dot{\psi} & \ddot{\psi}  \end{matrix}]^T $ $= [ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix}]^T$
 
-+ Process model: predicts the state at time step k+1 
++ Process model: predicts the state at time step k+1 =>
+
+  $ x_{k+1} && = f(x_{k}, \nu_{k})  $
+
+  ​         $ = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix} \right] dt $  ;   $dt = t_{k+1} - t_{k}$ 
 
   ​
-  $$
-  x_{k} + 
+  $$ 
+  \begin{align*}
+  &= x_{k} + 
   \left[ 
     \begin{matrix} 
       \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\\\
@@ -33,8 +49,9 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
       0
     \end{matrix}
   \right]
+  \end{align*}
   $$
-
+  ​
 
 
 
