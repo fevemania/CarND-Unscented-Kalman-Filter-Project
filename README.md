@@ -39,10 +39,11 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
 
 
 $$
-\begin{align}
-   x_{k+1} = f(x_{k})
+\begin{aligned}
 
-   & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
+  x_{k+1} = f(x_{k})
+
+  & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
 
   & = x_{k} + 
   \left[ 
@@ -76,8 +77,10 @@ $$
       0
     \end{matrix}
   \right]
-  \end{align}
+
+\end{aligned}
 $$
+
 
   ​
 
