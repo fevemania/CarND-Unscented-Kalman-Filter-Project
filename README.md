@@ -35,9 +35,9 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
   $dt = t_{k+1} - t_{k}$ 
 
   ​
-  \[
+  
   \begin{align}
-
+  \\[
    x_{k+1} = f(x_{k}, \nu_{k})  
 
    & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix} \right] dt \\\\
@@ -52,8 +52,9 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
       0
     \end{matrix}
   \right]
+  \\]
   \end{align}
-  \]
+  
   ​
 
 
