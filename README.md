@@ -38,7 +38,6 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
   + WIthout consider noise:
 
 
-$$
 \begin{aligned}
 
   x_{k+1} = f(x_{k})
@@ -79,7 +78,6 @@ $$
   \right]
 
 \end{aligned}
-$$
 
 
   ​
