@@ -38,13 +38,12 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
   + WIthout consider noise:
 
 
-\begin{aligned}
-
+$$
   x_{k+1} = f(x_{k})
 
-  & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
+  = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
 
-  & = x_{k} + 
+  = x_{k} + 
   \left[ 
     \begin{matrix} 
       \int^{t_{k+1}}_{t_{k}} v(t) \cdot cos(\psi(t)) dt   \\\\
@@ -66,7 +65,7 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
     \end{matrix}
   \right] \\\\
 
-  & = x_{k} + 
+  = x_{k} + 
   \left[ 
     \begin{matrix} 
       \frac{v{k}}{\psi_{k}} \left( sin(\psi_{k} + \dot{\psi_{k}} \Delta t) - sin(\psi_{k})  \right) \\\\
@@ -77,8 +76,8 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
     \end{matrix}
   \right]
 
-\end{aligned}
 
+$$
 
   ​
 
