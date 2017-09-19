@@ -32,25 +32,28 @@ In UKF, we work with a moving object of interest under CTRV  (constant turn rate
 
 + Process model: predicts the state at time step k+1 =>
 
-   x_{k+1} & = f(x_{k}, \nu_{k})  
-
-  ​         $ = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix} \right] dt $  ;   $dt = t_{k+1} - t_{k}$ 
+  $dt = t_{k+1} - t_{k}$ 
 
   ​
-  $$
-  \begin{align*}
-  &= x_{k} + 
+  \[
+  \begin{align}
+
+   x_{k+1} = f(x_{k}, \nu_{k})  
+
+   & = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix} \right] dt \\\\
+
+  & = x_{k} + 
   \left[ 
     \begin{matrix} 
-      \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\
-      v \cdot sin(\psi) \\
-      0 \\
-      \dot{\psi} \\
+      \frac{v{k}} {\psi_{k}} \left( \cdot cos(\psi) \right) \\\\
+      v \cdot sin(\psi) \\\\
+      0 \\\\
+      \dot{\psi} \\\\
       0
     \end{matrix}
   \right]
-  \end{align*}
-  $$
+  \end{align}
+  \]
   ​
 
 
