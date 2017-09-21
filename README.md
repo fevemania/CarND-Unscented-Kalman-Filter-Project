@@ -13,38 +13,8 @@ please install Chrome extension [Github with MathJax][https://chrome.google.com/
 
 ## Mathematic About the UKF
 
-In UKF, we work with a moving object of interest under CTRV  (constant turn rate and velocity magnitude model) nonlinear motion model which assumes the object can move straight, but they can also move with a constant turn rate and a const velocity magnitude.
 
-+ The State Vector of CTRV model :  $ x = [ \begin{matrix} p_{x} & p_{y} &  v &  \psi & \dot{\psi} \end{matrix} ]^T $
-
-  + $v$ : speed which describes the magnitude
-
-  + $\psi$ : yaw angle which describes the orientation
-
-  + $\dot{\psi}$ : yaw rate
-
-    ​
-
-    ![CTRV_state_vecotr](demo/CTRV_state_vector.png)
-
-    ​
-
-+ Change rate of state :   $ \dot{x} = [\begin{matrix} \dot{p_{x}} & \dot{p_{y}} & \dot{v} & \dot{\psi} & \ddot{\psi}  \end{matrix}]^T $ $= [ \begin{matrix} v \cdot cos(\psi) & v \cdot sin(\psi) & 0 & \dot{\psi} & 0 \end{matrix}]^T$
-
-+ Time difference         :   $\Delta t = t_{k+1} - t_{k}$ 
-
-+ Process model (predicts the state at time step k+1) :   $ x_{k+1} = f(x_{k}, \nu_{k}) $
-
-  + WIthout consider noise:
-
-
-$$
-  x_{k+1} = f(x_{k})
-
-  = x_{k} + \int^{t_{k+1}}_{t_{k}} \left[ \begin{matrix} v(t) \cdot cos(\psi(t)) & v(t) \cdot sin(\psi(t)) & 0 & \dot{\psi} & 0 \end{matrix} \right]^T dt \\\\
-$$
-
-  ​
+  
 
 
 

@@ -22,7 +22,7 @@ public:
   ///* if this is false, radar measurements will be ignored (except for init)
   bool use_radar_;
 
-  ///* state vector: [pos1 pos2 vel_abs yaw_angle yaw_rate] in SI units and rad
+  ///* state vector: [px py vel yaw_angle yaw_rate] in SI units and rad
   VectorXd x_;
 
   ///* state covariance matrix
@@ -40,10 +40,10 @@ public:
   ///* Process noise standard deviation yaw acceleration in rad/s^2
   double std_yawdd_;
 
-  ///* Laser measurement noise standard deviation position1 in m
+  ///* Laser measurement noise standard deviation position_x in m
   double std_laspx_;
 
-  ///* Laser measurement noise standard deviation position2 in m
+  ///* Laser measurement noise standard deviation position_y in m
   double std_laspy_;
 
   ///* Radar measurement noise standard deviation radius in m
@@ -103,12 +103,15 @@ public:
    */
   void UpdateRadar(MeasurementPackage meas_package);
 
-  void GenerateSigmaPoints(MatrixXd* Xsig_out);
-  void AugmentedSigmaPoints(MatrixXd* Xsig_out);
-  void SigmaPointPrediction(const MatrixXd* Xsig_in, MatrixXd* Xsig_out, const double& delta_t);
-  void PredictMeanAndCovariance(const MatrixXd* Xsig_pred);
-  void PredictRadarMeasurement(const MatrixXd& Xsig_pred, VectorXd* z_out, MatrixXd* S_out);
-  void UpdateState(const MatrixXd& Xsig_pred, VectorXd* x_out, MatrixXd* P_out);
+  void GenerateAugmentSigmaPoints(MatrixXd* Xsig_out);
+  void SigmaPointPrediction(const MatrixXd& Xsig_aug, const double& delta_t);
+  void PredictMeanAndCovariance();
+  void PredictRadarMeasurement(MatrixXd* Zsig_points, VectorXd* z_out, MatrixXd* S_out);
+  void UpdateState_radar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
+                   const VectorXd& z_meas);
+  void PredictLidarMeasurement(MatrixXd* Zsig_points, VectorXd* z_out, MatrixXd* S_out);
+  void UpdateState_lidar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
+                   const VectorXd& z_meas);
 };
 
 #endif /* UKF_H */
