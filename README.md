@@ -14,7 +14,7 @@ In this project utilize an Unscented Kalman Filter to estimate the state of a mo
 
 ## Mathematic About the UKF
 
-Please see [Mathematic Formula Note of Unscented Kalman Filter with CTRV model](https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/)
+Please see [Mathematic Formula Note of Unscented Kalman Filter with CTRV model](https://fevemania.github.io/blog/mathematic-formula-note-of-unscented-kalman-filter/)
   
 
 
