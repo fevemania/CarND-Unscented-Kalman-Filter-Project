@@ -142,20 +142,20 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
   // write NIS data into file
   // 
   // if (lidar_NIS_record_.size() == 249) {
-  //   ofstream file;
-  //   file.open ("lidar_NIS_record.txt");
+  //   ofstream out_file_lidar;
+  //   out_file_lidar.open ("lidar_NIS_record.txt");
   //   for (int i = 0; i < lidar_NIS_record_.size(); ++i) {
-  //     file << i+1 << " " << lidar_NIS_record_[i] << " " << 5.991 << endl;
+  //     out_file_lidar << i+1 << " " << lidar_NIS_record_[i] << " " << 5.991 << endl;
   //   }
-  //   file.close();
+  //   out_file_lidar.close();
   // }
   // if (radar_NIS_record_.size() == 249) {
-  //   ofstream file;
-  //   file.open ("radar_NIS_record.txt");
+  //   ofstream out_file_radar;
+  //   out_file_radar.open ("radar_NIS_record.txt");
   //   for (int i = 0; i < radar_NIS_record_.size(); ++i) {
-  //     file << i+1 << " " << radar_NIS_record_[i] << " " << 7.815 << endl;
+  //     out_file_radar << i+1 << " " << radar_NIS_record_[i] << " " << 7.815 << endl;
   //   }
-  //   file.close();    
+  //   out_file_radar.close();    
   // }
 }
 
