@@ -1,22 +1,42 @@
+<!-- s Here I put the resource of images -->
+[result_radar_only]: demo/result_radar_only.png
+[result_lidar_only]: demo/result_lidar_only.png
+[result_lidar_and_radar]: demo/result_lidar_and_radar.png
+[radar_NIS]: demo/radar_NIS.png
+[lidar_NIS]: demo/lidar_NIS.png
+
 # Unscented Kalman Filter Project Starter Code
 Self-Driving Car Engineer Nanodegree Program
 
-In this project utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project reburic. 
-
-
-
-## Render Latex code on github
-
-please install Chrome extension [Github with MathJax][https://chrome.google.com/webstore/detail/github-with-mathjax/ioemnmodlmafdkllaclgeombjnmnbima].
+In this project utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project reburic.  
 
 
 
 ## Mathematic About the UKF
 
-
+Please see [Mathematic Formula Note of Unscented Kalman Filter with CTRV model][https://fevemania.github.io/blog/mathematic-concept-of-unscented-kalman-filter/]  
   
 
 
+## RMSE and NIS Result of this project
+
+#### **RMSE:**
+
+|Condiction|Result|Description|
+|-------|:----------:|-----|
+|Radar only|![radar RMSE][result_radar_only]|Obviously, the vx and vy value of rmse of radar would smaller than lidar because it could directly measurement the velocity|
+|Lidar only|![lidar RMSE][result_lidar_only]|the vx and vy value of rmse of lidar would smaller than lidar because it has better spactial resolution compared to radar data.|
+|Both|![Both RMSE][result_lidar_and_radar]|the result of sensor fusion takes the advantage from them.|  
+
+#### **NIS:**
+
+* Radar Data
+
+![Radar NIS][radar_NIS]
+
+* Lidar Data
+
+![Lidar NIS][Lidar_NIS]
 
 ## Installation
 
@@ -31,7 +51,6 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 3. cmake ..
 4. make
 5. ./UnscentedKF
-
 
 
 ## Usage

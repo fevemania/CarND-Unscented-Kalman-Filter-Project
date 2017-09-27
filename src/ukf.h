@@ -67,6 +67,11 @@ public:
   ///* Sigma point spreading parameter
   double lambda_;
 
+  MatrixXd Xsig_aug_;
+
+  ///* Collect NIS data from lidar and radar
+  std::vector<double> lidar_NIS_record_;
+  std::vector<double> radar_NIS_record_;
 
   /**
    * Constructor
@@ -103,15 +108,19 @@ public:
    */
   void UpdateRadar(MeasurementPackage meas_package);
 
-  void GenerateAugmentSigmaPoints(MatrixXd* Xsig_out);
-  void SigmaPointPrediction(const MatrixXd& Xsig_aug, const double& delta_t);
+  void GenerateAugmentSigmaPoints();
+  void SigmaPointPrediction(const double& delta_t);
   void PredictMeanAndCovariance();
+
   void PredictRadarMeasurement(MatrixXd* Zsig_points, VectorXd* z_out, MatrixXd* S_out);
-  void UpdateState_radar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
-                   const VectorXd& z_meas);
   void PredictLidarMeasurement(MatrixXd* Zsig_points, VectorXd* z_out, MatrixXd* S_out);
-  void UpdateState_lidar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
+
+  void UpdateState_Radar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
                    const VectorXd& z_meas);
+  void UpdateState_Lidar(const MatrixXd& Zsig_points, const VectorXd& z_pred, const MatrixXd& S,
+                   const VectorXd& z_meas);
+
+  double Calc_NIS(const VectorXd& z_diff, const MatrixXd& S);
 };
 
 #endif /* UKF_H */
