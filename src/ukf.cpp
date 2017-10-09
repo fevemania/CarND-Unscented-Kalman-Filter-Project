@@ -24,7 +24,7 @@ UKF::UKF() {
   use_laser_ = true;
 
   // if this is false, radar measurements will be ignored (except during init)
-  use_radar_ = false;
+  use_radar_ = true;
 
   // initial state vector
   x_ = VectorXd(n_x_);
@@ -79,10 +79,14 @@ UKF::UKF() {
   //set weights
   weights_ = VectorXd(2*n_aug_+1);
   
-  weights_(0) = lambda_ / (lambda_+n_aug_);
-  for (int i = 1; i < 2*n_aug_+1; ++i) {
-    weights_(i) = 0.5/(lambda_+n_aug_);
-  }      
+  // weights_(0) = lambda_ / (lambda_+n_aug_);
+  // for (int i = 1; i < 2*n_aug_+1; ++i) {
+  //   weights_(i) = 0.5/(lambda_+n_aug_);
+  // }      
+  weights_.fill(0.5 / (lambda_ + n_aug_));
+  weights_(0) = lambda_/(lambda_ + n_aug_);
+
+  P_ = MatrixXd::Identity(n_x_, n_x_);
 }
 
 UKF::~UKF() {}
@@ -262,15 +266,15 @@ void UKF::GenerateAugmentSigmaPoints() {
 
   // fill mean vector
   x_aug.head(n_x_) = x_;
-  x_aug(5) = 0; // longitudinal acceleration noise has mean 0
-  x_aug(6) = 0; //          yaw acceleration noise has mean 0
+  x_aug(n_x_) = 0; // longitudinal acceleration noise has mean 0
+  x_aug(n_x_+1) = 0; //          yaw acceleration noise has mean 0
 
   // fill covariance matrix
   P_aug.fill(0.0);
   P_aug.topLeftCorner(n_x_, n_x_) = P_;
   // insert process noise covariance matrix Q at the bottom right of P_aug_
-  P_aug(5,5) = std_a_*std_a_;
-  P_aug(6,6) = std_yawdd_*std_yawdd_;
+  P_aug(n_x_,n_x_) = std_a_*std_a_;
+  P_aug(n_x_+1,n_x_+1) = std_yawdd_*std_yawdd_;
 
   // calculate square root matrix of the P_aug
   MatrixXd A_aug = P_aug.llt().matrixL();
